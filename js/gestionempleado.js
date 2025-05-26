@@ -12,10 +12,27 @@ function recuperarElementoFormulario() {
 
 }
 
+
+
+function verificarInsercionOAtualizacion() {
+    
+    recuperarElementoFormulario()
+    var indiceEmpleadoEncontrado = empleados.findIndex(empleado => empleado.identificacion == identificacion.value)
+
+    if (indiceEmpleadoEncontrado < 0) {
+
+        guardar()
+
+    } else {
+        actualizar(indiceEmpleadoEncontrado)
+    }
+
+}
+
+
 function guardar() {
 
 
-    recuperarElementoFormulario()
 
     empleado = new Empleado(identificacion.value, nombres.value,
         apellidos.value, salario.value)
@@ -31,16 +48,18 @@ function guardar() {
 
 }
 
-function actualizar() {
 
-    recuperarElementoFormulario()
 
-    var indiceEmpleadoEncontrado = empleados.findIndex(empleado => empleado.identificacion == identificacion.value)
 
-    if (indiceEmpleadoEncontrado >= 0) {
-        empleados[indiceEmpleadoEncontrado].nombres = nombres.value
-        empleados[indiceEmpleadoEncontrado].apellidos = apellidos.value
-        empleados[indiceEmpleadoEncontrado].salario = salario.value
+function actualizar(indiceElementoActualizar) {
+
+
+    // var indiceEmpleadoEncontrado = empleados.findIndex(empleado => empleado.identificacion == identificacion.value)
+
+    if (indiceElementoActualizar >= 0) {
+        empleados[indiceElementoActualizar].nombres = nombres.value
+        empleados[indiceElementoActualizar].apellidos = apellidos.value
+        empleados[indiceElementoActualizar].salario = salario.value
 
         escribirDataStoreConJSON(nombreLocalStore, empleados)
         alert('El empleado ha sido actualizado con exito')
